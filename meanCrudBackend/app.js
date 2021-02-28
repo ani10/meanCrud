@@ -15,9 +15,7 @@ mongoose.connect(`mongodb+srv://${(environment.env.MONGO_TEST_USERNAME)?environm
 });
 
 
-app.use('/users', user, (res, rej) => {
-  //res.send("Success");
-});
+app.use('/users', user);
 
 app.use('/', (req, res) => {
   res.send("Help will come to those who seek")

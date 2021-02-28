@@ -26,7 +26,7 @@ exports.userCreate = function(req, res, next) {
 //get user
 exports.userDetails = function(req, res) {
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.send("Falure: ")
+    res.send("Falure: Invalid Id Format")
   } else {
     User.findById(req.params.id)
     .then((result) => {
@@ -40,17 +40,39 @@ exports.userDetails = function(req, res) {
   }
 }
 //update user
-exports.UserUpdate = (req, res) => {
-  let id = req.params.id;
-  let item = req.body;
+exports.UserUpdate = (request, response) => {
+  let id = request.params.id;
+  let item = request.body;
 
-  User.findByIdAndUpdate(id, {$set: item})
-  .then((result) => {
-    console.log("User Updated: " + result)
-    res.send("User Updated: " + resultresult)
-  })
-  .catch(err => {
-    console.log("Error: "+ err);
-    res.send("Falure: " + err)
-  });
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    res.send("Falure: Invalid Id Format")
+  } else {
+    User.findByIdAndUpdate(id, {$set: item})
+    .then((result) => {
+      console.log("User Updated: ")
+      response.send("User Updated: ")
+    })
+    .catch(err => {
+      console.log("Error: "+ err);
+      response.send("Falure: " + err)
+    });
+  }
+}
+
+//delete user 
+exports.UserDelete = (request, response) => {
+  let id = request.params.id;
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    response.send("Falure: Invalid Id Format")
+  } else {
+    User.findByIdAndRemove(id)
+      .then((result) => {
+        console.log("User Deleted: ")
+        response.send("User Deleted: ")
+      })
+      .catch(err => {
+        console.log("Error: "+ err);
+        response.send("Falure: " + err)
+      });
+  }
 }
