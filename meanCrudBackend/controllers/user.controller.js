@@ -1,8 +1,9 @@
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
 
-exports.test = function(req, res) {
-  res.send('Greetings from the test controller');
+exports.all = function(req, res) {
+  User.find()
+    .then(result=>res.send(result))
 }
 //create user
 exports.userCreate = function(req, res, next) {
