@@ -16,7 +16,7 @@ mongoose.connect(`mongodb+srv://${(environment.env.MONGO_TEST_USERNAME)?environm
 
 
 app.use('/users', user, (res, rej) => {
-  res.send("Success");
+  //res.send("Success");
 });
 
 app.use('/', (req, res) => {
