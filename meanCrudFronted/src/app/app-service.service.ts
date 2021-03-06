@@ -1,29 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IUsers } from './models/user.interface';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { catchError } from'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private getAllUrl = "http://localhost:4201/users/";
-  constructor(private http: HttpClient) { }
+  private baseUrl = "http://localhost:4201/users/";
+  constructor(private httpClient: HttpClient) { }
 
-  getAllUsers() {
-    return this.http.get(this.getAllUrl);
+  private handleError(errorResponse: HttpErrorResponse) {
+    if(errorResponse.error instanceof ErrorEvent) {
+      console.error("Client Side error:" + errorResponse.error)
+    } else {
+      console.error("Server Side error:" + errorResponse)
+    }
+    return throwError("The service ahs a problem: " + errorResponse)
   }
-  getUser(id: string){
-    return this.http.get(this.getAllUrl+id);
+
+  getAllUsers(): Observable<IUsers[]> {
+    return this.httpClient
+      .get<IUsers[]>(this.baseUrl)
+      .pipe(catchError(this.handleError));
   }
-  updateUserById(id: string, payload) {
-    return this.http.put(this.getAllUrl+id+'update', payload);
+  getUser(id: string): Observable<IUsers>{
+    return this.httpClient
+      .get<IUsers>(this.baseUrl+id)
+      .pipe(catchError(this.handleError));
   }
-  createUser(payload:string) {
-    return this.http.post(this.getAllUrl+'/user-create', payload)
+  updateUserById(id: string, payload): Observable<IUsers> {
+    return this.httpClient
+      .put<IUsers>(this.baseUrl+id+'update', payload)
+      .pipe(catchError(this.handleError));
   }
-  deleteUser(id:string) {
-    return this.http.delete(this.getAllUrl+id+'/delete');
+  createUser(payload:string): Observable<IUsers> {
+    return this.httpClient
+      .post<IUsers>(this.baseUrl+'/user-create', payload)
+      .pipe(catchError(this.handleError))
+  }
+  deleteUser(id:string): Observable<IUsers> {
+    return this.httpClient
+      .delete<IUsers>(this.baseUrl+id+'/delete')
+      .pipe(catchError(this.handleError));
   }
 }
