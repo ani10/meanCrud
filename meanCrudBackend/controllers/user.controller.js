@@ -69,11 +69,11 @@ exports.UserDelete = (request, response) => {
     User.findByIdAndRemove(id)
       .then((result) => {
         console.log("User Deleted: ")
-        response.send("User Deleted: ")
+        response.send(result);
       })
       .catch(err => {
         console.log("Error: "+ err);
-        response.send("Falure: " + err)
+        response.send("Error: "+ err)
       });
   }
 }
