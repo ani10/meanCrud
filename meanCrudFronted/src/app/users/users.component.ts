@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
   delete(id) {
     this._appservice.deleteUser(id).subscribe(
       (deletedUser) => console.log(deletedUser)
-    )
+    );
     this.initialize();
   }
 }
