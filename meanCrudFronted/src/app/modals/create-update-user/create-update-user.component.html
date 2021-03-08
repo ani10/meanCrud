@@ -1,0 +1,30 @@
+<div class="jw-modal">
+  <div class="jw-modal-body">
+    <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm.value)">
+      <div> 
+        <label>
+          First Name: <input type="text" formControlName="firstName">
+        </label>
+      </div>
+      <div> 
+        <label>
+          Last Name: <input type="text" formControlName="lastName">
+        </label>
+      </div>
+      <div> 
+        <label>
+          Email: <input type="text" formControlName="email">
+        </label>
+      </div>
+      <div> 
+        <label>
+          Phone Number: <input type="text" formControlName="phoneNumber">
+        </label>
+      </div>
+      <button type="submit" [disabled]="!userForm.valid">
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+<div class="jw-modal-background"></div>

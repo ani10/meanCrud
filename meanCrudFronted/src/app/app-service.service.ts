@@ -15,7 +15,7 @@ export class AppService {
     if(errorResponse.error instanceof ErrorEvent) {
       console.error("Client Side error:" + errorResponse.error)
     } else {
-      console.error("Server Side error:" + errorResponse)
+      console.error("Server Side error:" + errorResponse.message)
     }
     return throwError("The service ahs a problem: " + errorResponse)
   }
@@ -32,12 +32,12 @@ export class AppService {
   }
   updateUserById(id: string, payload): Observable<IUsers> {
     return this.httpClient
-      .put<IUsers>(this.baseUrl+id+'update', payload)
+      .put<IUsers>(this.baseUrl+id+'/update', payload)
       .pipe(catchError(this.handleError));
   }
-  createUser(payload:string): Observable<IUsers> {
+  createUser(payload:Object): Observable<IUsers> {
     return this.httpClient
-      .post<IUsers>(this.baseUrl+'/user-create', payload)
+      .post<IUsers>(this.baseUrl+'user-create', payload)
       .pipe(catchError(this.handleError))
   }
   deleteUser(id:string): Observable<IUsers> {

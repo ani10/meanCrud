@@ -19,7 +19,9 @@ export class UsersComponent implements OnInit {
 
   initialize() {
     this._appservice.getAllUsers().subscribe(
-      (userList) => this.users = userList,
+      (userList) => {
+        this.users = userList
+      },
       (err) => console.log(err)
     );
     console.log(this.users)
