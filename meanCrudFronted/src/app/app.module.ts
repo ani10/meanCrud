@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalsModule } from "./modals";
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { ModalsModule } from "./modals";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ModalsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
